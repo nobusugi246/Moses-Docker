@@ -1,0 +1,147 @@
+= 統計的機械翻訳システム Mosesを実行するための Dockerfile
+:example-caption: List
+
+Moses (a SMT: Statistical Machine Translation system) is an open source
+machine translation system
+that was mainly developed at University of Edinburgh.
+
+
+* http://www.statmt.org/moses/
+* https://github.com/moses-smt/mosesdecoder
+
+Moses is licensed under the LGPL.
+
+This Dockerfile is made to construct a English to Japanese translation environment.
+
+
+Mosesは、任意の言語間で翻訳が可能な機械翻訳システムです。
+統計的機械翻訳と呼ばれる技術が使用されています。
+
+この Dockerfileは、Mosesを使用して英日翻訳ができる環境を作成します。
+
+
+== How to run / 利用方法
+
+At first, you needs a environment that you can execute docker commands.
+
+Dockerを利用できる環境で、実行してください。
+
+まず、以下の様にして、Dockerイメージを作成します。
+
+.How to build a Docker image.
+====
+----
+$ docker build -t moses:0.1 .
+...
+Successfully built d2e2324dfe06
+----
+====
+
+This takes time. With my PC(Core i7、 2.7GHz), it takes about 40 min.
+
+これには時間がかかります。私のPC(Core i7、 2.7GHz)で、約40分でした。
+
+以下の様に、Dockerイメージが出来ていることを確認できます。
+
+.How to confirm the Docker image exists.
+====
+----
+$ docker images
+REPOSITORY   TAG   IMAGE ID       CREATED        VIRTUAL SIZE
+moses        0.1   d2e2324dfe06   7 minutes ago  2.828 GB
+----
+====
+
+
+To translate English to Japanese, you should execute command in Docker Container.
+
+翻訳を行なうためには、以下の様に Dockerコンテナ内で Mosesを起動し、英語文を入力します。
+
+.How to run the Moses, and translation
+====
+----
+$ docker run -i -t moses:1.0  // <1>
+/opt# mosesdecoder-master/bin/moses -f model/moses.ini   // <2>
+Defined parameters (per moses.ini or switch):
+	config: model/moses.ini 
+	distortion-limit: 6 
+	feature: UnknownWordPenalty WordPenalty PhrasePenalty PhraseDictionaryMemory name=TranslationModel0 num-features=4 path=/opt/model/phrase-table.gz input-factor=0 output-factor=0 Distortion KENLM name=LM0 factor=0 path=/opt/corpus/tanaka.ja.arpa order=5 
+	input-factors: 0 
+	mapping: 0 T 0 
+	weight: UnknownWordPenalty0= 1 WordPenalty0= -1 PhrasePenalty0= 0.2 TranslationModel0= 0.2 0.2 0.2 0.2 Distortion0= 0.3 LM0= 0.5 
+line=UnknownWordPenalty
+FeatureFunction: UnknownWordPenalty0 start: 0 end: 0
+line=WordPenalty
+FeatureFunction: WordPenalty0 start: 1 end: 1
+line=PhrasePenalty
+FeatureFunction: PhrasePenalty0 start: 2 end: 2
+line=PhraseDictionaryMemory name=TranslationModel0 num-features=4 path=/opt/model/phrase-table.gz input-factor=0 output-factor=0
+FeatureFunction: TranslationModel0 start: 3 end: 6
+line=Distortion
+FeatureFunction: Distortion0 start: 7 end: 7
+line=KENLM name=LM0 factor=0 path=/opt/corpus/tanaka.ja.arpa order=5
+Loading the LM will be faster if you build a binary file.
+Reading /opt/corpus/tanaka.ja.arpa
+----5---10---15---20---25---30---35---40---45---50---55---60---65---70---75---80---85---90---95--100
+****************************************************************************************************
+FeatureFunction: LM0 start: 8 end: 8
+Loading UnknownWordPenalty0
+Loading WordPenalty0
+Loading PhrasePenalty0
+Loading Distortion0
+Loading LM0
+Loading TranslationModel0
+Start loading text phrase table. Moses format : [1.693] seconds
+Reading /opt/model/phrase-table.gz
+----5---10---15---20---25---30---35---40---45---50---55---60---65---70---75---80---85---90---95--100
+****************************************************************************************************
+Created input-output object : [8.323] seconds
+my name is nakano  // <3>
+Translating: my name is nakano 
+Line 0: Initialize search took 0.002 seconds total
+Line 0: Collecting options took 0.000 seconds at moses/Manager.cpp Line 141
+Line 0: Search took 0.008 seconds
+私の 名前 nakano だ 。  // <4>
+BEST TRANSLATION: 私の 名前 nakano|UNK|UNK|UNK だ 。 [1111]  [total=-112.850] core=(-100.000,-6.000,4.000,-1.224,-4.902,-3.495,-5.582,-3.000,-31.419)  
+Line 0: Decision rule took 0.000 seconds total
+Line 0: Additional reporting took 0.000 seconds total
+Line 0: Translation took 0.014 seconds total
+----
+<1> Start the Docker Container / Dockerコンテナの起動
+<2> Start the Moses / Mosesの起動
+<3> Input a English sentence / 入力した英語文
+<4> Output of Japanese sentence / 翻訳された日本語文
+====
+
+
+== License / ライセンス
+
+Apache License Version 2.0
+
+
+== Acknowledgements / 謝辞
+
+This Dockerfile is based on the blog below URL.
+I appreciate the efforts of the author of the blog.
+
+この Dockerfileは、次の Blogを参考にして作成しました。
+Blogの執筆者に感謝いたします。ありがとうございました。
+
+http://y-uti.hatenablog.jp/entry/2014/10/25/214843
+
+
+== Next / 今後
+
+Next Step is
+
+* Japanese to English translation
+* REST API
+* Integration with Chat application
+
+今後は、日英翻訳と、RESTサービス化、Chatアプリとの融合、を考えています。
+
+
+== ChangLog / 変更履歴
+
+* Ver.0.1.0, Initial release : 2015-12-20
+
