@@ -31,6 +31,7 @@ Dockerを利用できる環境で、実行してください。
 .How to build a Docker image.
 ====
 ----
+$ cd dockerfile
 $ docker build -t moses:0.1 .
 ...
 Successfully built d2e2324dfe06
