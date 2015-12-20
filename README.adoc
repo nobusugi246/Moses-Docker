@@ -61,7 +61,7 @@ To translate English to Japanese, you should execute command in Docker Container
 .How to run the Moses, and translation
 ====
 ----
-$ docker run -i -t moses:1.0  // <1>
+$ docker run -i -t moses:0.1  // <1>
 /opt# mosesdecoder-master/bin/moses -f model/moses.ini   // <2>
 Defined parameters (per moses.ini or switch):
 	config: model/moses.ini 
