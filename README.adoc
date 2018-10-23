@@ -2,7 +2,7 @@
 :example-caption: List
 
 Moses is an open source SMT (Statistical Machine Translation) system
-that was developed at largely at the University of Edinburgh.
+that was for the most part developed at the University of Edinburgh.
 
 
 * http://www.statmt.org/moses/
