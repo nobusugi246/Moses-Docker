@@ -1,9 +1,8 @@
 = 統計的機械翻訳システム Mosesを実行するための Dockerfile
 :example-caption: List
 
-Moses (a SMT: Statistical Machine Translation system) is an open source
-machine translation system
-that was mainly developed at University of Edinburgh.
+Moses is an open source SMT (Statistical Machine Translation) system
+that was for the most part developed at the University of Edinburgh.
 
 
 * http://www.statmt.org/moses/
@@ -22,7 +21,8 @@ Mosesは、任意の言語間で翻訳が可能な機械翻訳システムです
 
 == How to run / 利用方法
 
-At first, you needs a environment that you can execute docker commands.
+To run this system, you will need an environment that can execute Docker commands.
+The first thing you will need to do is create a Docker image, as explained below. 
 
 Dockerを利用できる環境で、実行してください。
 
@@ -38,13 +38,14 @@ Successfully built d2e2324dfe06
 ----
 ====
 
-This takes time. With my PC(Core i7、 2.7GHz), it takes about 40 min.
+It can take some time to do this. With my PC(Core i7、 2.7GHz), it takes about 40 min.
+Once the process has finished, you can do the following to confirm your image exists. 
 
 これには時間がかかります。私のPC(Core i7、 2.7GHz)で、約40分でした。
 
 以下の様に、Dockerイメージが出来ていることを確認できます。
 
-.How to confirm the Docker image exists.
+.How to confirm the Docker image exists
 ====
 ----
 $ docker images
@@ -53,8 +54,7 @@ moses        0.1   d2e2324dfe06   7 minutes ago  2.828 GB
 ----
 ====
 
-
-To translate English to Japanese, you should execute command in Docker Container.
+To translate, you should startup the Moses command in the Docker Container and input the following English.
 
 翻訳を行なうためには、以下の様に Dockerコンテナ内で Mosesを起動し、英語文を入力します。
 
@@ -122,8 +122,8 @@ Apache License Version 2.0
 
 == Acknowledgements / 謝辞
 
-This Dockerfile is based on the blog below URL.
-I appreciate the efforts of the author of the blog.
+This Dockerfile references the blog linked below.
+I'd like to express my thanks to its author. 
 
 この Dockerfileは、次の Blogを参考にして作成しました。
 Blogの執筆者に感謝いたします。ありがとうございました。
@@ -133,10 +133,10 @@ http://y-uti.hatenablog.jp/entry/2014/10/25/214843
 
 == Next / 今後
 
-Next Step is
+My next steps will be: 
 
 * Japanese to English translation
-* REST API
+* RESTful Conversion Service
 * Integration with Chat application
 
 今後は、日英翻訳と、RESTサービス化、Chatアプリとの融合、を考えています。
